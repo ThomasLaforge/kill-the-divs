@@ -1,15 +1,16 @@
+import { useState } from "react"
+
 export default function Home() {
-    const jwt = localStorage.getItem('jwt')
+    const [username, setUsername] = useState('')
 
     return (
         <div>
             <h1>Home</h1>
             <div className="connected-status">
-                Je suis connecté
+                Bienvenue : {username}
             </div>
             <div className="connected-data">
-                <div className="title">jwt :</div>
-                <div className="value">{jwt}</div>
+                <div className="value"></div>
             </div>
         </div>
     )

@@ -1,18 +1,30 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 export default function Connexion(){
-    const [password, setPassword] = useState('')
-    const [email, setEmail] = useState('')
+    const [login, setLogin] = useState('')
+    const navigate = useNavigate()
+
+    const handleConnexion = () => {
+        console.log('login saisi', login)
+        navigate('/home')
+    }
 
     return (
         <div>
             <h1>Connexion</h1>
             <div className="form">
-                <label htmlFor="email">Email</label>
-                <input type="email" id="email" name="email" onChange={(e) => setEmail(e.target.value)} />
-                <label htmlFor="password">Password</label>
-                <input type="password" id="password" name="password" onChange={(e) => setPassword(e.target.value)} />
-                <button>Se connecter</button>
+                <label htmlFor="login">Login</label>
+                <input 
+                    type="text" 
+                    id="login" 
+                    name="login" 
+                    value={login}
+                    onChange={(e) => setLogin(e.target.value)} 
+                />
+                <button onClick={handleConnexion}>
+                    Rentrer dans le jeu
+                </button>
             </div>
         </div>
     )
