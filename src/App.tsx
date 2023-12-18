@@ -1,16 +1,21 @@
 import './App.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import Connexion from './routes/Connexion'
+import Game from './routes/Game'
 import Home from './routes/Home'
+import End from './routes/End'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Connexion />,
+    element: <Home />,
   },
   {
-    path: '/',
-    element: <Home />,
+    path: '/game',
+    element: <Game />,
+  },
+  {
+    path: '/end',
+    element: <End />
   }
 ])
 

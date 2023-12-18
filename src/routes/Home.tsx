@@ -1,17 +1,12 @@
 import { useState } from "react"
+import { useNavigate } from "react-router"
 
 export default function Home() {
-    const [username, setUsername] = useState('')
+    const navigate = useNavigate()
 
     return (
-        <div>
-            <h1>Home</h1>
-            <div className="connected-status">
-                Bienvenue : {username}
-            </div>
-            <div className="connected-data">
-                <div className="value"></div>
-            </div>
+        <div className="page home-page">
+            <button onClick={() => navigate('/game')}>Start</button>
         </div>
     )
 }
