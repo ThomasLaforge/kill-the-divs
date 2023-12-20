@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 export default function End() {
     const { time } = useParams()
     const [countryName, setCountryName] = useState('')
+    const navigate = useNavigate()
 
     useEffect(() => {
         // Get position with geolocation API
@@ -15,11 +16,23 @@ export default function End() {
         })
     }, [])
 
+    const handleShare = () => {
+        if (navigator.share) {
+            navigator.share({
+                title: 'Partage de mon score',
+                text: 'J\'ai terminé le jeu en ' + time + ' secondes',
+                url: window.location.href
+            })
+        }
+    }
+
     return (
         <div className="page end-page">
             <h1>Bravo</h1>
             <div className="time">Votre temps est de : {time} sec</div>
             {countryName.length > 0 && <div className="country">Pays : {countryName}</div>}
+            <button onClick={handleShare}>Share</button>
+            <button onClick={() => navigate('/game')}>Restart</button>
         </div>
     )
 }

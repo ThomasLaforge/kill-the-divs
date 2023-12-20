@@ -42,22 +42,24 @@ export default function Home() {
             }
 
             setPosition(getRandomPosition())
-            if(nbKilledDivs < 9 ){
-                setNbKilledDivs(nbKilledDivs + 1)
-            }
-            else {
+            if(nbKilledDivs === 9 ){
                 if(intervalId){
                     clearInterval(intervalId)
                 }
+                
                 Notification.requestPermission().then((permission) => {
                     if (permission === "granted") {
-                        new Notification("Hi there!");
+                        new Notification("Partie terminée", { 
+                            body: "Bravo vous avez terminé la partie en " + timeValue.toFixed(3) + " secondes" 
+                        });
                     }
                 });
+
                 setTimeout(() => {
                     navigate('/end/' + timeValue.toFixed(3))
-                }, 1000)
+                }, 3000)
             }
+            setNbKilledDivs(nbKilledDivs + 1)
         }
     }
 
@@ -86,11 +88,11 @@ export default function Home() {
                 </div>
             </div>
             <div className="game-zone">
-                <div 
+                {nbKilledDivs < 10 ? <div 
                     className="div-to-kill" 
                     style={position}
                     onClick={handleDivClick}
-                />
+                />: <div>Bravo patientez quelques instants</div>}
             </div>
         </div>
     )

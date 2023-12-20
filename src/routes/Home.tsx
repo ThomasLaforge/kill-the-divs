@@ -18,11 +18,19 @@ export default function Home() {
         })
     }, [])
 
+    const handleSwitchScreen = () => {
+        if (document.fullscreenElement) {
+            document.exitFullscreen()
+        } else {
+            document.documentElement.requestFullscreen()
+        }
+    }
 
     return (
         <div className="page home-page">
             <button onClick={() => navigate('/game')}>Start</button>
             {!installedPWA ? <button onClick={() => eventPWAInstall?.prompt()}>Installer</button> : null}
+            <button onClick={handleSwitchScreen}>Switch fullscreen</button>
         </div>
     )
 }
