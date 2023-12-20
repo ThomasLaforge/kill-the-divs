@@ -16,7 +16,7 @@ export default function Home() {
     const [_, refresh] = useState(0)
     const [position, setPosition] = useState(getRandomPosition())
     const [nbKilledDivs, setNbKilledDivs] = useState(0)
-    
+
     const navigate = useNavigate()
 
     const timeValue = totalTime + (pause ? 0 : (Date.now() - start) / 1000)
@@ -31,13 +31,19 @@ export default function Home() {
 
     const handleDivClick = () => {
         if(!pause){
+            if(navigator.vibrate){
+                navigator.vibrate(200)
+            }
+
             setPosition(getRandomPosition())
             if(nbKilledDivs < 9 ){
                 setNbKilledDivs(nbKilledDivs + 1)
             }
             else {
                 clearInterval(intervalId)
-                navigate('/end')
+                setTimeout(() => {
+                    navigate('/end')
+                }, 1000)
             }
         }
     }
