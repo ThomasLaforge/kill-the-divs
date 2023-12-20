@@ -16,7 +16,7 @@ export default function Home() {
     const [totalTime, setTotalTime] = useState(0)
     const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null)
     const [_, refresh] = useState(0)
-    const [position, setPosition] = useState(getRandomPosition())
+    const [position, setPosition] = useState({left: '100%', top: '100%'})
     const [nbKilledDivs, setNbKilledDivs] = useState(0)
 
     const navigate = useNavigate()
@@ -49,6 +49,11 @@ export default function Home() {
                 if(intervalId){
                     clearInterval(intervalId)
                 }
+                Notification.requestPermission().then((permission) => {
+                    if (permission === "granted") {
+                        new Notification("Hi there!");
+                    }
+                });
                 setTimeout(() => {
                     navigate('/end')
                 }, 1000)
@@ -68,21 +73,25 @@ export default function Home() {
 
     return (
         <div className="page game-page">
-            <div className="kill-cpt">{nbKilledDivs}/10</div>
-            <div className="timer">
-                <div className="timer-value">{timeValue.toFixed(3)} sec</div>
-                <div className="timer-actions">
-                    {pause 
-                        ? <button className="restart-btn" onClick={handleRestart}>Restart</button>
-                        : <button className="pause-btn" onClick={handlePause}>Pause</button>
-                    }
+            <div className="game-infos">
+                <div className="kill-cpt">{nbKilledDivs}/10</div>
+                <div className="timer">
+                    <div className="timer-value">{timeValue.toFixed(3)} sec</div>
+                    <div className="timer-actions">
+                        {pause 
+                            ? <button className="restart-btn" onClick={handleRestart}>Restart</button>
+                            : <button className="pause-btn" onClick={handlePause}>Pause</button>
+                        }
+                    </div>
                 </div>
             </div>
-            <div 
-                className="div-to-kill" 
-                style={position}
-                onClick={handleDivClick}
-            />
+            <div className="game-zone">
+                <div 
+                    className="div-to-kill" 
+                    style={position}
+                    onClick={handleDivClick}
+                />
+            </div>
         </div>
     )
 }
