@@ -8,6 +8,8 @@ const getRandomPosition = () => {
     }
 }
 
+const son = new Audio('/son.mp3')
+
 export default function Home() {
     const [start, setStart] = useState(0)
     const [pause, setPause] = useState(false)
@@ -31,6 +33,10 @@ export default function Home() {
 
     const handleDivClick = () => {
         if(!pause){
+            son.pause()
+            son.currentTime = 0
+            son.play()
+
             if(navigator.vibrate){
                 navigator.vibrate(200)
             }
