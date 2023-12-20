@@ -14,7 +14,7 @@ const router = createBrowserRouter([
     element: <Game />,
   },
   {
-    path: '/end',
+    path: '/end/:time',
     element: <End />
   }
 ])

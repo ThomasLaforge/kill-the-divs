@@ -16,7 +16,7 @@ export default function Home() {
     const [totalTime, setTotalTime] = useState(0)
     const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null)
     const [_, refresh] = useState(0)
-    const [position, setPosition] = useState({left: '100%', top: '100%'})
+    const [position, setPosition] = useState(getRandomPosition())
     const [nbKilledDivs, setNbKilledDivs] = useState(0)
 
     const navigate = useNavigate()
@@ -55,7 +55,7 @@ export default function Home() {
                     }
                 });
                 setTimeout(() => {
-                    navigate('/end')
+                    navigate('/end/' + timeValue.toFixed(3))
                 }, 1000)
             }
         }
