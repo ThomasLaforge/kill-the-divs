@@ -7,6 +7,7 @@ const getRandomPosition = () => {
         left: (Math.random() * 100) + '%' 
     }
 }
+const NB_DIVS_TO_KILL = 3
 
 const son = new Audio('/son.mp3')
 
@@ -41,8 +42,7 @@ export default function Home() {
                 navigator.vibrate(200)
             }
 
-            setPosition(getRandomPosition())
-            if(nbKilledDivs === 9 ){
+            if(nbKilledDivs === NB_DIVS_TO_KILL - 1){
                 if(intervalId){
                     clearInterval(intervalId)
                 }
@@ -54,11 +54,12 @@ export default function Home() {
                         });
                     }
                 });
-
+                
                 setTimeout(() => {
                     navigate('/end/' + timeValue.toFixed(3))
                 }, 3000)
             }
+            setPosition(getRandomPosition())
             setNbKilledDivs(nbKilledDivs + 1)
         }
     }
@@ -76,7 +77,7 @@ export default function Home() {
     return (
         <div className="page game-page">
             <div className="game-infos">
-                <div className="kill-cpt">{nbKilledDivs}/10</div>
+                <div className="kill-cpt">{nbKilledDivs}/{NB_DIVS_TO_KILL}</div>
                 <div className="timer">
                     <div className="timer-value">{timeValue.toFixed(3)} sec</div>
                     <div className="timer-actions">
@@ -88,7 +89,7 @@ export default function Home() {
                 </div>
             </div>
             <div className="game-zone">
-                {nbKilledDivs < 10 ? <div 
+                {nbKilledDivs < NB_DIVS_TO_KILL ? <div 
                     className="div-to-kill" 
                     style={position}
                     onClick={handleDivClick}
