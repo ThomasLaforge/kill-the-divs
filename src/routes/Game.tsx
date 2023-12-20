@@ -14,7 +14,7 @@ export default function Home() {
     const [start, setStart] = useState(0)
     const [pause, setPause] = useState(false)
     const [totalTime, setTotalTime] = useState(0)
-    const [intervalId, setIntervalId] = useState(0)
+    const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null)
     const [_, refresh] = useState(0)
     const [position, setPosition] = useState(getRandomPosition())
     const [nbKilledDivs, setNbKilledDivs] = useState(0)
@@ -46,7 +46,9 @@ export default function Home() {
                 setNbKilledDivs(nbKilledDivs + 1)
             }
             else {
-                clearInterval(intervalId)
+                if(intervalId){
+                    clearInterval(intervalId)
+                }
                 setTimeout(() => {
                     navigate('/end')
                 }, 1000)
